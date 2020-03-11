@@ -26,6 +26,10 @@
     border-bottom: 2px solid white;
 }
 
+.h6 {
+    font-size: 1em;
+}
+
 .button {
     color: #fff;
     text-transform: uppercase;
@@ -50,7 +54,14 @@
     color: #86181d;
     background-color: #ffdce0;
 }
-
+.checkboxes {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    color: white;
+    font-size: 1em;
+    font-weight: 400;
+}
 @media (min-width: 320px) and (max-width: 480px) {
     .joinOuterContainer {
         height: 100%;

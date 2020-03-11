@@ -13,11 +13,14 @@ const Join = () => {
     const [error, setError] = useState(false);
 
     const handleSetInputValue = ({target}) =>{
+        const name = target.value;
         setError(false);
-        setFormData({
-            ...formData,
-            [target.name]: target.value
-        });
+        setFormData({...formData, name})
+    };
+
+    const handleSetRoom = ({target}) =>{
+        const room = target.name;
+        setFormData({...formData, room});
 
     };
 
@@ -38,7 +41,7 @@ const Join = () => {
                         className={'button mb-20 error'}>
                         Not correct data
                     </span>
-                    : <h1 className="heading">Join</h1>}
+                    : <h1 className="heading">Join Chat</h1>}
                 <div>
                     <input placeholder="name"
                            className="joinInput"
@@ -46,13 +49,41 @@ const Join = () => {
                            name="name"
                            onChange={handleSetInputValue} />
                 </div>
-                <div>
+                <h1 className="heading h6">Choose the Room</h1>
+                <div className="button checkboxes mt-20">
+
+                    <label> Books
                     <input
-                        placeholder="room"
-                        className="joinInput mt-20"
-                        type="text"
-                        name="room"
-                        onChange={handleSetInputValue} />
+                        className="joinInput"
+                        type="checkbox"
+                        name="books"
+                        checked={formData.room==="books"}
+                        onChange={handleSetRoom} />
+                    </label>
+                    <label> Cars
+                        <input
+                            className="joinInput"
+                            type="checkbox"
+                            name="cars"
+                            checked={formData.room==="cars"}
+                            onChange={handleSetRoom} />
+                    </label>
+                    <label> Life
+                        <input
+                            className="joinInput"
+                            type="checkbox"
+                            name="life"
+                            checked={formData.room==="life"}
+                            onChange={handleSetRoom} />
+                    </label>
+                    <label> Secret
+                        <input
+                            className="joinInput"
+                            type="checkbox"
+                            name="secret"
+                            checked={formData.room==="secret"}
+                            onChange={handleSetRoom} />
+                    </label>
                 </div>
                 <Link onClick={(e)=>validate(e, formData)} to={`/chat?name=${formData.name}&room=${formData.room}`}>
                     <button className={'button mt-20'} type="submit">Sign In</button>
