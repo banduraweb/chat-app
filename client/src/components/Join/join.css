@@ -40,6 +40,7 @@
     display: inline-block;
     border: none;
     width: 100%;
+    font-family: 'Baloo 2', cursive;
 }
 
 .mt-20 {
@@ -59,7 +60,7 @@
     justify-content: space-between;
     padding: 5px;
     color: white;
-    font-size: 1em;
+    font-size: 0.8em;
     font-weight: 400;
 }
 @media (min-width: 320px) and (max-width: 480px) {
