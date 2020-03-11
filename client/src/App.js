@@ -1,13 +1,15 @@
 import React from 'react';
+import { Route } from "react-router-dom";
+import Join from "./components/Join/Join";
+import Chat from "./components/Chat/Chat";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-      <h1>Hello</h1>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    return (
+        <>
+            <Route path="/" exact component={Join} />
+            <Route path="/chat" component={Chat} />
+        </>
+    );
+};
 
 export default App;
