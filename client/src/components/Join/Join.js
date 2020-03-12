@@ -35,7 +35,6 @@ const Join = () => {
         setFormData({ ...formData, room: target.value });
     };
 
-    console.log(formData);
     return (
         <div className="joinOuterContainer">
             <div className="joinInnerContainer">
