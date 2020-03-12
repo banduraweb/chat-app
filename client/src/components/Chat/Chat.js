@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import TextContainer from '../TextContainer/TextContainer';
 import Messages from '../Messages/Messages';
 import InfoBar from '../InfoBar/InfoBar';
@@ -12,6 +12,8 @@ let socket;
 
 const Chat = () => {
     const location = useLocation();
+    const history = useHistory();
+    const [users, setUsers] = useState('');
     const [userData, setUserData] = useState({});
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
@@ -26,6 +28,7 @@ const Chat = () => {
         socket.emit('join', userData, error => {
             if (error) {
                 alert(error, 'errorerror');
+                return history.push('/');
             }
         });
 
@@ -33,17 +36,17 @@ const Chat = () => {
             socket.emit('disconnect');
             socket.off();
         };
-    }, [location.search]);
+    }, [history, ENDPOINT, location.search]);
 
     useEffect(() => {
         socket.on('message', message => {
             setMessages([...messages, message]);
         });
 
-        // socket.on('roomData', ({ users }) => {
-        //     setUsers(users);
-        // })
-    }, [message]);
+        socket.on('roomData', ({ users }) => {
+            setUsers(users);
+        });
+    }, [messages]);
 
     const sendMessage = event => {
         event.preventDefault();
@@ -52,8 +55,7 @@ const Chat = () => {
             socket.emit('sendMessage', message, () => setMessage(''));
         }
     };
-    console.log(message, 'message');
-    console.log(messages, 'messages');
+
     return (
         <div className="outerContainer">
             <div className="container">
@@ -65,7 +67,7 @@ const Chat = () => {
                     sendMessage={sendMessage}
                 />
             </div>
-            {/*<TextContainer users={users}/>*/}
+            <TextContainer users={users} />
         </div>
     );
 };
