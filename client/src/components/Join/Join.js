@@ -116,7 +116,17 @@ const Join = () => {
                 <>
                     <br />
                     <button className="button" onClick={createOwnRoom}>
-                        {!ownRoom ? <span>create own room<br/>OR<br/>enter room of your's companion</span> : <span>choose exist room</span>}
+                        {!ownRoom ? (
+                            <span>
+                                create own room
+                                <br />
+                                OR
+                                <br />
+                                enter room of your's companion
+                            </span>
+                        ) : (
+                            <span>choose exist room</span>
+                        )}
                     </button>
                 </>
                 <Link

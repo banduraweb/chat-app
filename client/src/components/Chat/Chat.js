@@ -21,18 +21,16 @@ const Chat = () => {
     const ENDPOINT = 'https://infinite-retreat-25083.herokuapp.com/';
 
     useEffect(() => {
+        const userData = queryString.parse(location.search);
+        setUserData(userData);
+        socket = io(ENDPOINT);
 
-            const userData = queryString.parse(location.search);
-            setUserData(userData);
-            socket = io(ENDPOINT);
-
-             socket.emit('join', userData, error => {
-                if (error) {
-                    alert(error);
-                    return history.push('/');
-                }
-            });
-
+        socket.emit('join', userData, error => {
+            if (error) {
+                alert(error);
+                return history.push('/');
+            }
+        });
 
         return () => {
             socket.emit('disconnect');
@@ -41,15 +39,13 @@ const Chat = () => {
     }, [history, ENDPOINT, location.search]);
 
     useEffect(() => {
+        socket.on('message', message => {
+            setMessages([...messages, message]);
+        });
 
-             socket.on('message', message => {
-                setMessages([...messages, message]);
-            });
-
-             socket.on('roomData', ({ users }) => {
-                setUsers(users);
-            });
-
+        socket.on('roomData', ({ users }) => {
+            setUsers(users);
+        });
     }, [messages]);
 
     const sendMessage = event => {
